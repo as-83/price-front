@@ -1,0 +1,17 @@
+<div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-2.jpg">
+  <div class="logo"><div class="simple-text logo-normal">
+    Категории
+  </div></div>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      <li class="nav-item pointer" *ngFor="let category of categories" (click)="categoryClick(category)"
+          [class.active]="category === selectedCategory"
+      >
+        <a class="nav-link">
+          <p>{{category.title}}</p>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</div>

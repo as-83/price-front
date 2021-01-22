@@ -1,0 +1,42 @@
+<div class="add_outer"  *ngIf="visible">
+
+  <div class="add_inner">
+
+    <div class="row justify-content-center">
+
+      <div class="col-6  mt-3">
+        <h3 align="center">Задача</h3>
+<!--        <h3 align="center" *ngIf="map">Задача добавлена в список дел</h3>-->
+
+        <form class="form-group mt-3" >
+
+          <input class="form-control" type="text" name="name" [(ngModel)]="work.title" placeholder="Наименование работы"/><br>
+
+          <label class="form-check-label">Категория: </label>
+          <select  class="form-control mb-3"  name="categoryId" (change)="setCategory($event)">
+            <option *ngFor="let category of filterCategories(); let i = index" value="{{i}}"   [selected]="work.category.category_id === category.category_id">{{category.title}}</option>
+          </select>
+          <hr>
+
+          <label class="form-check-label">Подкатегория: </label>
+          <select  class="form-control mb-3"  name="subCategoryId" (change)="setSubCategory($event)">
+            <option *ngFor="let subCategory of filterSubCategories(); let i = index" value="{{i}}"   [selected]="work.subCategory.subCategoryId === subCategory.subCategoryId">{{subCategory.title}}</option>
+          </select>
+          <hr>
+
+          <input class="form-control" type="date" name="localDate"  [(ngModel)]="work.localDate" /><br>
+          <button class="btn  btn-primary" (click)="saveTask()">Сохранить</button>
+          <button class="btn  btn-primary" (click)="hideComponent()">Отмена</button>
+          <button *ngIf="work.id" class="btn  btn-primary ml-3" (click)="deleteTask(work.id)">Удалить</button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+

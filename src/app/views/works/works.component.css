@@ -1,0 +1,11 @@
+.pointer {
+  cursor: pointer;
+}
+
+.show-on-hover{
+  visibility: hidden;
+}
+
+#tr:hover  .show-on-hover{
+  visibility: visible;
+}
