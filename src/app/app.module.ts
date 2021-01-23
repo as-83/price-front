@@ -7,6 +7,7 @@ import {FormsModule} from '@angular/forms';
 import { CategoriesComponent } from './views/categories/categories.component';
 import { AddWorksComponent } from './views/add-works/add-works.component';
 import {DataServiceService} from './service/data-service.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {DataServiceService} from './service/data-service.service';
   ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         FormsModule
     ],
   providers: [DataServiceService],

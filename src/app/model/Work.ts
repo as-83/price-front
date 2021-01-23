@@ -8,16 +8,16 @@ export class Work {
   subCategory?: SubCategory;
   unit?: string;
   coast?: number;
-  localDate?: string;
+  creationDate?: string;
 
   // tslint:disable-next-line:max-line-length
-  constructor(id?: number, title?: string, completed?: boolean, category?: Category, subCategory?: SubCategory, unit?: string, coast?: number, localDate?: string) {
+  constructor(id?: number, title?: string, completed?: boolean, category?: Category, subCategory?: SubCategory, unit?: string, coast?: number, creationDate?: string) {
     this.id = id;
     this.title = title;
     this.subCategory = subCategory;
     this.category = category;
     this.unit = unit;
     this.coast = coast;
-    this.localDate = localDate;
+    this.creationDate = creationDate;
   }
 }

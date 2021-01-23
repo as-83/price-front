@@ -21,14 +21,16 @@ export class WorksComponent implements OnInit {
   constructor(private dataService: DataServiceService) { }
 
   ngOnInit(): void {
+    this.dataService.clickedCategory$.subscribe(data => this.currentCategory = data);
     this.dataService.works$.subscribe(works => {
         this.works = works;
         this.fillViewWorks();
       });
-    this.dataService.clickedCategory$.subscribe(data => this.currentCategory = data);
   }
 
   fillViewWorks(): void {
+    // this.viewWorks = this.works;
+    this.dataService.clickedCategory$.subscribe(data => this.currentCategory = data);
     this.viewWorks = this.filterByCategory(this.works);
   }
 
