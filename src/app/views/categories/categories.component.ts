@@ -17,6 +17,9 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.categories$.subscribe(data => {
       this.categories = data;
+      console.log('ngOnInit() --- ' + data);
+      this.selectedCategory = this.categories[0];
+      console.log('ngOnInit() --- ' + this.selectedCategory);
     });
     this.dataService.clickedCategory$.subscribe(data => {
       this.selectedCategory = data;
@@ -26,6 +29,7 @@ export class CategoriesComponent implements OnInit {
   categoryClick(category: Category): void {
     this.dataService.setCategory(category);
     this.categoryEvent.emit(null);
+    this.selectedCategory = category;
     console.log(category.title);
   }
 }

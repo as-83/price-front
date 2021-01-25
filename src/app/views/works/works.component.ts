@@ -9,7 +9,7 @@ import {DataServiceService} from '../../service/data-service.service';
   styleUrls: ['./works.component.css']
 })
 export class WorksComponent implements OnInit {
-  @Output() showAddWork = new EventEmitter();
+  @Output() showAddWork = new EventEmitter<Work>();
   works: Work[];
   viewWorks: Work[];
   currentCategory: Category;
@@ -21,20 +21,23 @@ export class WorksComponent implements OnInit {
   constructor(private dataService: DataServiceService) { }
 
   ngOnInit(): void {
-    this.dataService.clickedCategory$.subscribe(data => this.currentCategory = data);
     this.dataService.works$.subscribe(works => {
         this.works = works;
         this.fillViewWorks();
       });
+    this.dataService.clickedCategory$.subscribe(data => this.currentCategory = data);
   }
 
   fillViewWorks(): void {
     // this.viewWorks = this.works;
     this.dataService.clickedCategory$.subscribe(data => this.currentCategory = data);
     this.viewWorks = this.filterByCategory(this.works);
+    console.log('fillViewWorks()---' + this.currentCategory);
+    console.log('fillViewWorks()---' + this.viewWorks);
   }
 
-  showAddWorkComponent(param): void {
+  showAddWorkComponent(work: Work): void {
+    this.showAddWork.emit(work);
   }
 
   deleteWork(id: number): void {
@@ -48,7 +51,7 @@ export class WorksComponent implements OnInit {
     });
   }
 
-  private filterByCategory(works: Work[]): Work[] {
-    return works.filter(work => work.category.category_id === this.currentCategory.category_id);
+  private filterByCategory(works: Work[]): Work[]{
+    return works.filter(work => work.category.categoryId === this.currentCategory.categoryId);
   }
 }

@@ -15,16 +15,17 @@ export class DataServiceService {
   categoriesSubject = new BehaviorSubject<Category[]>([]);
   works$: Observable<Work[]> = this.worksSubject.asObservable();
   categories$: Observable<Category[]> = this.categoriesSubject.asObservable();
-  private currentCategSource = new BehaviorSubject<Category>(new Category(2, 'Все Категории'));
+  private currentCategSource = new BehaviorSubject<Category>(new Category(1, 'Пол'));
   clickedCategory$ = this.currentCategSource.asObservable();
   allWorks: Work[] = [];
 
   constructor(private httpClient: HttpClient) {
     this.loadCategories();
     this.loadWorks();
+    this.works$.subscribe(data => this.allWorks = data );
   }
 
-  private loadCategories(): void {
+  loadCategories(): void {
     this.categories$ = this.httpClient.get<Category[]>(this.categUrl).pipe(
       map(response => response),
       tap(categories => this.categoriesSubject.next(categories))
@@ -40,5 +41,9 @@ export class DataServiceService {
 
   setCategory(clickedCategory: Category): void{
     this.currentCategSource.next(clickedCategory);
+  }
+
+  add(work: Work): Observable<Work> {
+    return  this.httpClient.post<Work>(this.worksUrl, work);
   }
 }
