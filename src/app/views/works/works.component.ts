@@ -41,6 +41,9 @@ export class WorksComponent implements OnInit {
   }
 
   deleteWork(id: number): void {
+    this.dataService.deleteWork(id).subscribe();
+    this.works = this.works.filter(work => work.id !== id);
+    this.viewWorks = this.viewWorks.filter(work => work.id !== id);
   }
 
   loadWorks(): void {

@@ -13,24 +13,48 @@ export class AddWorksComponent implements OnInit {
   @Output() closeEvent = new EventEmitter();
   visible: boolean;
   work: Work;
+  categories: Category[];
+  subCategories: SubCategory[];
 
   constructor(private dataService: DataServiceService) { }
 
   ngOnInit(): void {
+    this.dataService.categories$.subscribe(data => this.categories = data);
+    this.dataService.subCategories$.subscribe(data => this.subCategories = data);
   }
 
   filterCategories(): Category[] {
     return null;
   }
 
-  setCategory($event: Event): void {
-  }
-
-  setSubCategory($event: Event): void {
-  }
-
   filterSubCategories(): SubCategory[] {
     return null;
+  }
+
+  setCategory(event: any): void {
+    this.work.category = this.categories[event.target.value];
+    console.log('setCategory()=>' + event.target.value);
+  }
+
+  setSubCategory(event: any): void {
+    this.work.subCategory = this.subCategories[event.target.value];
+    console.log('setSubCategory()=>' + event.target.value);
+  }
+
+  showComponent($event: any): void {
+    if ($event != null){
+      this.work = $event;
+    }else{
+      this.work = new Work();
+      this.work.category = this.categories[0];
+      this.work.subCategory = this.subCategories[0];
+      console.log('event===null' + ' -------- ' + this.categories[0]);
+    }
+    this.visible = true;
+  }
+
+  hideComponent(): void {
+    this.visible = false;
   }
 
   saveWork(): void {
@@ -39,16 +63,7 @@ export class AddWorksComponent implements OnInit {
   }
 
   deleteWork(id: number): void {
-  }
-
-  showComponent($event: any): void {
-    if ($event != null){
-      this.work = $event.valueOf();
-    }
-    this.visible = true;
-  }
-
-  hideComponent(): void {
-    this.visible = false;
+    this.dataService.deleteWork(id);
+    this.work = new Work();
   }
 }

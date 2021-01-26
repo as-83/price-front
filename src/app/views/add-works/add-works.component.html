@@ -8,7 +8,7 @@
         <h3 align="center">Задача</h3>
 <!--        <h3 align="center" *ngIf="map">Задача добавлена в список дел</h3>-->
 
-        <form class="form-group mt-3" >
+        <form #myForm="ngForm" class="form-group mt-3" >
 
           <input class="form-control" type="text" name="name" [(ngModel)]="work.title" placeholder="Наименование работы"/><br>
           <input class="form-control" type="text" name="unit" [(ngModel)]="work.unit" placeholder="Единица измерения"/><br>
@@ -16,13 +16,15 @@
 
           <label class="form-check-label">Категория: </label>
           <select  class="form-control mb-3"  name="categoryId" (change)="setCategory($event)">
-            <option *ngFor="let category of filterCategories(); let i = index" value="{{i}}"   [selected]="work.category.categoryId === category.categoryId">{{category.title}}</option>
+            <option *ngFor="let category of categories; let i = index" value="{{i}}"
+                    [selected]="work.category.categoryId === category.categoryId">{{category.title}}</option>
           </select>
           <hr>
 
           <label class="form-check-label">Подкатегория: </label>
           <select  class="form-control mb-3"  name="subCategoryId" (change)="setSubCategory($event)">
-            <option *ngFor="let subCategory of filterSubCategories(); let i = index" value="{{i}}"   [selected]="work.subCategory.subCategoryId === subCategory.subCategoryId">{{subCategory.title}}</option>
+            <option *ngFor="let subCategory of subCategories; let i = index" value="{{i}}"
+                    [selected]="work.subCategory.subCategoryId === subCategory.subCategoryId">{{subCategory.title}}</option>
           </select>
           <hr>
 
