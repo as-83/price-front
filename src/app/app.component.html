@@ -1,6 +1,6 @@
 <div class="wrapper ">
 
-  <app-add-works #addWork (closeEvent)="works.loadWorks()"></app-add-works>
+  <app-add-works #addWork (closeEvent)="works.loadWorks($event)"></app-add-works>
 
   <app-categories (categoryEvent)="works.fillViewWorks()"></app-categories>
 

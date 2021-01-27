@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Work} from '../../model/Work';
 import {Category} from '../../model/Category';
 import {DataServiceService} from '../../service/data-service.service';
+import {SubCategory} from '../../model/SubCategory';
 
 @Component({
   selector: 'app-works',
@@ -31,12 +32,17 @@ export class WorksComponent implements OnInit {
   fillViewWorks(): void {
     // this.viewWorks = this.works;
     this.dataService.clickedCategory$.subscribe(data => this.currentCategory = data);
-    this.viewWorks = this.filterByCategory(this.works);
+    this.filterWorksByCategory();
     console.log('fillViewWorks()---' + this.currentCategory);
     console.log('fillViewWorks()---' + this.viewWorks);
   }
 
   showAddWorkComponent(work: Work): void {
+    if (work == null){
+      work = new Work();
+      work.category = this.currentCategory;
+      this.works.push(work);
+    }
     this.showAddWork.emit(work);
   }
 
@@ -46,15 +52,16 @@ export class WorksComponent implements OnInit {
     this.viewWorks = this.viewWorks.filter(work => work.id !== id);
   }
 
-  loadWorks(): void {
-    this.dataService.loadWorks();
-    this.dataService.works$.subscribe(data => {
-      this.works = data;
-      this.fillViewWorks();
-    });
+  loadWorks(work: Work): void {
+    // this.works.push(work);
+    this.filterWorksByCategory();
   }
 
-  private filterByCategory(works: Work[]): Work[]{
-    return works.filter(work => work.category.categoryId === this.currentCategory.categoryId);
+  private filterWorksByCategory(): void{
+    if (this.currentCategory.categoryId !== 9){
+      this.viewWorks = this.works.filter(work => work.category.categoryId === this.currentCategory.categoryId);
+    }else{
+      this.viewWorks = this.works;
+    }
   }
 }

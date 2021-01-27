@@ -19,7 +19,8 @@ export class AddWorksComponent implements OnInit {
   constructor(private dataService: DataServiceService) { }
 
   ngOnInit(): void {
-    this.dataService.categories$.subscribe(data => this.categories = data);
+    this.dataService.categories$.subscribe(
+      data => this.categories = (this.categories = data).filter(category => category.categoryId !== 9));
     this.dataService.subCategories$.subscribe(data => this.subCategories = data);
   }
 
@@ -42,13 +43,9 @@ export class AddWorksComponent implements OnInit {
   }
 
   showComponent($event: any): void {
-    if ($event != null){
-      this.work = $event;
-    }else{
-      this.work = new Work();
-      this.work.category = this.categories[0];
+    this.work = $event;
+    if (this.work.subCategory == null){
       this.work.subCategory = this.subCategories[0];
-      console.log('event===null' + ' -------- ' + this.categories[0]);
     }
     this.visible = true;
   }
@@ -59,7 +56,7 @@ export class AddWorksComponent implements OnInit {
 
   saveWork(): void {
     this.dataService.add(this.work).subscribe(data => this.work = data);
-    this.closeEvent.emit();
+    this.closeEvent.emit(this.work);
   }
 
   deleteWork(id: number): void {
