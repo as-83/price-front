@@ -16,7 +16,7 @@ export class WorksComponent implements OnInit {
   currentCategory: Category;
   filters = {
     keyword: '',
-    sortBy: `6`
+    sortBy: `2`
   };
 
   constructor(private dataService: DataServiceService) { }
@@ -30,11 +30,8 @@ export class WorksComponent implements OnInit {
   }
 
   fillViewWorks(): void {
-    // this.viewWorks = this.works;
     this.dataService.clickedCategory$.subscribe(data => this.currentCategory = data);
     this.filterWorksByCategory();
-    console.log('fillViewWorks()---' + this.currentCategory);
-    console.log('fillViewWorks()---' + this.viewWorks);
   }
 
   showAddWorkComponent(work: Work): void {
@@ -53,7 +50,7 @@ export class WorksComponent implements OnInit {
   }
 
   loadWorks(work: Work): void {
-    // this.works.push(work);
+    this.filters.keyword = '';
     this.filterWorksByCategory();
   }
 
@@ -63,5 +60,24 @@ export class WorksComponent implements OnInit {
     }else{
       this.viewWorks = this.works;
     }
+    this.orderViewWorks();
+  }
+
+  orderViewWorks(): void{
+    this.viewWorks = this.viewWorks.sort((w1, w2) => {
+      switch (this.filters.sortBy){
+        case '1': return w1.title.toLowerCase() < w2.title.toLowerCase() ? 1 : -1;
+        case '2': return w1.title.toLowerCase() < w2.title.toLowerCase() ? -1 : 1;
+        case '3': return w2.subCategory.subCategoryId - w1.subCategory.subCategoryId;
+        case '4': return w1.subCategory.subCategoryId - w2.subCategory.subCategoryId;
+        case '5': return w1.creationDate < w2.creationDate ? 1 : -1;
+        case '6': return w1.creationDate < w2.creationDate ? -1 : 1;
+      }
+    });
+  }
+
+  findWorks(): void {
+    this.filterWorksByCategory();
+    this.viewWorks = this.viewWorks.filter(work => work.title.toLowerCase().includes(this.filters.keyword.toLowerCase()));
   }
 }

@@ -2,7 +2,7 @@
 
   <app-add-works #addWork (closeEvent)="works.loadWorks($event)"></app-add-works>
 
-  <app-categories (categoryEvent)="works.fillViewWorks()"></app-categories>
+  <app-categories (categoryEvent)="works.loadWorks($event)"></app-categories>
 
   <div class="main-panel">
     <!-- Navbar -->

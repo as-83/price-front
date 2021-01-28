@@ -8,7 +8,7 @@
             <p class="card-category">{{currentCategory.title}}</p>
           </div>
           <div class="col-lg-2">
-<!--            <input  class="form-control my-3" type="text" [(ngModel)]="filters.keyword" placeholder="Поиск по названию" (input)="fillWorks()"/>-->
+            <input  class="form-control my-3" type="text" [(ngModel)]="filters.keyword" placeholder="Поиск по названию" (input)="findWorks()"/>
           </div>
           <div class="col-lg-3">
             <!--<label class="form-check-label">Статус задач: </label>
@@ -19,15 +19,15 @@
             </select>-->
           </div>
           <div class="col-lg-3">
-            <!--<label class="form-check-label">Упорядочить по</label>
-            <select  class="form-control mb-3"  name="sortBy" [(ngModel)]="filters.sortBy" (change)="fillWorks()">
+            <label class="form-check-label">Упорядочить по</label>
+            <select  class="form-control mb-3"  name="sortBy" [(ngModel)]="filters.sortBy" (change)="orderViewWorks()">
               <option value="5">Упорядочить по Дате &#8595;</option>
               <option value="6">Упорядочить по Дате &#8593;</option>
               <option value="1">Упорядочить по Названию &#8593;</option>
               <option value="2">Упорядочить по Названию &#8595;</option>
-              <option value="3">Упорядочить по Приоритету &#8593;</option>
-              <option value="4">Упорядочить по Приоритету &#8595;</option>
-            </select>-->
+              <option value="3">Упорядочить по Подкатегории &#8593;</option>
+              <option value="4">Упорядочить по Подкатегории &#8595;</option>
+            </select>
           </div>
           <div class="col-lg-2">
             <button class="btn  btn-primary ml-3" (click)="showAddWorkComponent(null)">Добавить пункт</button>
