@@ -15,6 +15,7 @@ export class AddWorksComponent implements OnInit {
   work: Work;
   categories: Category[];
   subCategories: SubCategory[];
+  disabled = true;
 
   constructor(private dataService: DataServiceService) { }
 
@@ -48,6 +49,7 @@ export class AddWorksComponent implements OnInit {
       this.work.subCategory = this.subCategories[0];
     }
     this.visible = true;
+    this.disabled = false;
   }
 
   hideComponent(): void {
@@ -57,6 +59,7 @@ export class AddWorksComponent implements OnInit {
   saveWork(): void {
     this.dataService.add(this.work).subscribe(data => this.work = data);
     this.closeEvent.emit(this.work);
+    this.disabled = true;
   }
 
   deleteWork(id: number): void {
